@@ -13,7 +13,7 @@
   4. Restart the tomcat server
 
 
- * Process to run any of the above files:
+** Process to run any of the above files:
      - First copy the file to required directory
      - run `chmod +x file_name` to make the script executable
      - run the script using `sh file_name.sh`
