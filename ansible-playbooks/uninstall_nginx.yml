@@ -1,0 +1,13 @@
+- name: This playbook will uninstall and remove nginx
+  hosts: prod_server
+  become: yes    ## become means to run as root
+  tasks:
+   - name: uninstall nginx
+     apt:
+      name: nginx
+      state: absent
+      purge: yes       ## Also removes config files, similar to running `sudo apt purge`
+   - name: remove nginx
+     service:
+      name: nginx
+      state: stopped

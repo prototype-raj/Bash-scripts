@@ -1,0 +1,13 @@
+- name: this will uninstall based on os
+  hosts: prod_server
+  become: yes
+  tasks:
+    - name: uninstall Docker
+      apt:
+       name: docker.io
+       state: absent
+    - name: uninstall nginx
+      apt:
+       name: nginx
+       state: absent
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
