@@ -1,0 +1,25 @@
+- name: loop using file and copy module
+  hosts: all
+  tasks: 
+    - copy: 
+        src: "{{ item }}"
+        dest: /tmp
+      with_items: 
+        - /etc/passwd
+        - /etc/group
+        
+    - file: 
+        path: "{{ item }}"
+        state: directory
+      with_items: 
+        - /tmp/cloud1
+        - /tmp/cloud2
+        - /tmp/cloud3
+        
+    - copy:
+        src: /etc/passwd
+        dest: "{{ item }}"
+      with_items: 
+        - /tmp/cloud1
+        - /tmp/cloud2
+        - /tmp/cloud3

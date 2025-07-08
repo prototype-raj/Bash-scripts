@@ -1,0 +1,34 @@
+- name: Create VPC in AWS
+  hosts: all
+  tasks:
+    - amazon.aws.ec2_vpc_net:
+        name: Staging VPC
+        aws_access_key: <redacted>
+        aws_secret_key: <redacted>
+        state: present
+        cidr_block: 172.22.0.0/16
+        aws_region: ap-south-1 
+        subnets: 
+          - cidr: 172.22.1.0/24
+            az: ap-south-1a
+            resource_tags:
+              Name: Subnet-1
+          - cidr: 172.22.2.0/24
+            az: ap-south-1b
+            resource_tags:
+              Name: Subnet-2
+          - cidr: 172.22.3.0/24
+            az: ap-south-1c
+            resource_tags: 
+              Name: Subnet-3
+        internet_gateway: True
+        route_tables: 
+          - subnets:
+              - 172.22.1.0/24
+              - 172.22.2.0/24
+              - 172.22.3.0/24
+            routes:
+              - dest: 0.0.0.0/0
+                gw: igw
+            resource_tags:
+              Name: Staging-route-table

@@ -1,0 +1,11 @@
+- name: loop way
+  hosts: prod_server
+  tasks: 
+    - copy:
+        src: "{{ item }}"
+        dest: /tmp
+        remote_src: true
+      with_items:
+        - /etc/passwd
+        - /etc/group
+        - /etc/shadow
